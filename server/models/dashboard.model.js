@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-const dashboardSchema = new Schema({
-  // Define your schema fields here
+const dashboardSchema = new mongoose.Schema({
   intensity: { type: Number, required: true },
   likelihood: { type: Number, required: true },
   relevance: { type: Number, required: true },
@@ -15,5 +12,4 @@ const dashboardSchema = new Schema({
 });
 
 const Dashboard = mongoose.model('Dashboard', dashboardSchema);
-
 module.exports = Dashboard;

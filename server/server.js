@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dashboardRouter = require('./routes/dashboard');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,20 +10,18 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection
-mongoose.connect('mongodb://<admin>:<RTK6vSTYpfUCmzA0>@<cluster-url>/<database>?retryWrites=true&w=majority', { // Update cluster name and database name
+mongoose.connect('mongodb://localhost:27017/DashBoard', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('MongoDB connected successfully');
+})
+.catch((err) => {
+  console.error('Error connecting to MongoDB: ', err);
 });
 
-const connection = mongoose.connection;
-connection.once('open', () => {
-  console.log('MongoDB database connection established successfully');
-});
-
-// Define routes
-const dashboardRouter = require('./routes/dashboard');
-app.use('/api/dashboard', dashboardRouter);
+app.use('/api', dashboardRouter);
 
 // Start server
 app.listen(PORT, () => {
