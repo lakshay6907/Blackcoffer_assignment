@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Dashboard = require('../models/dashboard.model');
+const dashboard = require('../models/dashboard.model.js');
 
 // Fetch all data
 router.get('/dashboard', async (req, res) => {
   try {
-    const dashboardData = await Dashboard.find();
+    const dashboardData = await dashboard.find({});
     console.log('Fetched Data:', dashboardData);
     res.json(dashboardData);
   } catch (error) {
